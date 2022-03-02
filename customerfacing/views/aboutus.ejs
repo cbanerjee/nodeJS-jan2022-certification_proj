@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        .outerdiv {
+            margin: 10px 10px 10px 10px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('header') %>
+    <div class="row outerdiv">
+        <div class="col-md-6">
+            <h2>Find us here:</h2>
+            <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 600px">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60378.836248696134!2d72.84892531415993!3d18.945674146615207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1db120d9313%3A0xcd9460a6efdac78c!2sMumbai%2C%20Maharashtra%20400001!5e0!3m2!1sen!2sin!4v1646211141448!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div><h3>We are always here to help you.<br><br>Find how to reach out to us in the <a href="/common/contactus/">Contact Us</a> section</div></h3>
+        </div>
+    </div>
+    <%- include('footer') %>
+</body>
+</html>
