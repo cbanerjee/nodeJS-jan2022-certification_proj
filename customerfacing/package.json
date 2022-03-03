@@ -1,0 +1,30 @@
+{
+  "name": "certification-proj-cust-facing-part",
+  "version": "1.0.2",
+  "description": "Chunilal Banerjee",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbanerjee/nodeJS-jan2022-certification_proj.git"
+  },
+  "author": "Chunilal Banerjee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cbanerjee/nodeJS-jan2022-certification_proj/issues"
+  },
+  "homepage": "https://github.com/cbanerjee/nodeJS-jan2022-certification_proj#readme",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "mongodb": "^4.4.0",
+    "node-fetch": "^3.2.1",
+    "request": "^2.88.2",
+    "socket.io": "^4.4.1",
+    "underscore": "^1.13.2"
+  }
+}

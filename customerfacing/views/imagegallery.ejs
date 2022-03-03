@@ -1,0 +1,87 @@
+<!-- Carousel wrapper -->
+<div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+
+    <script>
+        function getnewsdata() {
+            var oReq = new XMLHttpRequest();
+            oReq.open("GET", "/common/latestnews/");
+            oReq.send();
+            oReq.onload = function() {
+                json = JSON.parse(oReq.responseText); //return is a json array with 3 objects
+                if(json[0].imagelink){
+                    document.getElementById('first-slide').innerHTML =`
+                    <img src=${json[0].imagelink} class="d-block w-100" alt="${json[0].headline}"/>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>${json[0].headline}</h5>
+                    </div>`
+                }
+                if(json[1].imagelink){
+                    document.getElementById('second-slide').innerHTML= `
+                    <img src="${json[1].imagelink}" class="d-block w-100" alt="${json[1].headline}"/>
+                    <div class="carousel-caption d-none d-md-block">
+                    <h5>${json[1].headline}</h5>
+                    </div>`
+                }
+
+                if(json[2].imagelink){
+                    document.getElementById('third-slide').innerHTML= `
+                    <img src="${json[2].imagelink}" class="d-block w-100" alt="${json[2].headline}"/>
+                    <div class="carousel-caption d-none d-md-block">
+                    <h5>${json[2].headline}</h5>
+                    </div>`
+                }
+            };
+        }
+        getnewsdata();
+    </script>
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+      <button
+        type="button"
+        data-mdb-target="#carouselBasicExample"
+        data-mdb-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+      ></button>
+      <button
+        type="button"
+        data-mdb-target="#carouselBasicExample"
+        data-mdb-slide-to="1"
+        aria-label="Slide 2"
+      ></button>
+      <button
+        type="button"
+        data-mdb-target="#carouselBasicExample"
+        data-mdb-slide-to="2"
+        aria-label="Slide 3"
+      ></button>
+    </div>
+  
+    <!-- Inner -->
+    <div class="carousel-inner">
+      <!-- Single item -->
+      <div class="carousel-item active" id = "first-slide">
+      </div>
+  
+      <!-- Single item -->
+      <div class="carousel-item" id="second-slide">
+      </div>
+  
+      <!-- Single item -->
+      <div class="carousel-item" id = "third-slide">
+      </div>
+    </div>
+    <!-- Inner -->
+  
+    <!-- Controls -->
+    <button class="carousel-control-prev" type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <!-- Carousel wrapper -->

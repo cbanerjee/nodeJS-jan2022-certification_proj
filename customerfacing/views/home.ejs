@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,52 +12,53 @@
         .container {
             margin: 2px 30%;
         }
+
         .outerdiv {
             margin: 10px 10px 10px 10px;
         }
     </style>
     <script>
-        window.onload = function(){
+        window.onload = function () {
             var time = new Date().getHours() + ":" + new Date().getMinutes();
-            document.getElementById('weather_time').innerHTML = "at Time: "+ time + "HRS";
+            document.getElementById('weather_time').innerHTML = "Time: " + time + "HRS";
         };
 
-        
+
         function getLocation() {
-            if(navigator.geolocation) {
+            if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
             } else {
                 document.getElementById('location').innerHTML = "Location Unsupported";
             }
         }
 
-        function showPosition (position){
+        function showPosition(position) {
             let key = "a497c94c2a485bffba5d6ce06df5eedc";
             let url = `http://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${key}`;
 
             var oReq = new XMLHttpRequest();
             oReq.open("GET", url);
             oReq.send();
-            oReq.onload = function() {
+            oReq.onload = function () {
                 json = JSON.parse(oReq.responseText);
-                document.getElementById('temperature').innerHTML = `Temperature is ${parseInt(JSON.stringify(json.main.temp))-273} °C`;
+                document.getElementById('temperature').innerHTML = `Temperature : ${parseInt(JSON.stringify(json.main.temp)) - 273} °C`;
                 // console.log(JSON.stringify(json));
             };
 
             var oReq2 = new XMLHttpRequest();
 
-            oReq2.open("GET",`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}longitude=${position.coords.longitude}&localityLanguage=en`);
+            oReq2.open("GET", `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}longitude=${position.coords.longitude}&localityLanguage=en`);
             oReq2.send();
 
-            oReq2.onload = function() {
+            oReq2.onload = function () {
                 json = JSON.parse(oReq2.responseText);
-                document.getElementById('location').innerHTML = `at Location : ${JSON.stringify(json.localityInfo.administrative[2].name)} `;
+                document.getElementById('location').innerHTML = `City Name : ${JSON.stringify(json.localityInfo.administrative[2].name)} `;
                 console.log(JSON.stringify(json.localityInfo.administrative[2].name));
             };
         }
 
-        function showError (err) {
-            if(err.PERMISSION_DENIED) {
+        function showError(err) {
+            if (err.PERMISSION_DENIED) {
                 document.getElementById('location').innerHTML = "Denied Access";
             }
         }
@@ -65,11 +67,26 @@
 </head>
 
 <body>
-    <%- include('header') %> <!--Done-->
-    <%- include('weatherreport') %>
-    <div class="row outerdiv">
-        
-    </div>
-    <%- include('footer') %> <!-- Done -->
+    <%- include('header') %>
+        <!--Done-->
+        <%- include('weatherreport') %>
+            <!-- Done-->
+            <div class="row outerdiv">
+                <div class="col-md-6">
+                    <%- include ('imagegallery') %>
+                        <!-- Done -->
+                        <p>
+
+                        </p>
+                        <%- include ('threelatestnews') %>
+                            <!--Done-->
+                </div>
+                <div class="col-md-6">
+                    <iframe src="http://localhost:3300/" width="600" height="600"></iframe>
+                </div>
+            </div>
+            <%- include('footer') %>
+                <!-- Done -->
 </body>
+
 </html>

@@ -1,0 +1,28 @@
+<div>
+    <script>
+        function getnewsdata() {
+            var oReq = new XMLHttpRequest();
+            oReq.open("GET", "/common/latestnews/");
+            oReq.send();
+            oReq.onload = function() {
+                json = JSON.parse(oReq.responseText); //return is a json array with 3 objects
+                json.forEach(news=>{
+                    document.getElementById("news-carousel").insertAdjacentHTML('beforeend',
+                    `<div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">${news.headline}</h5>
+                                <p class="card-text">${news.body}</p>
+                                <p class="card-text">${news.time}</p>
+                            </div>
+                        </div>
+                    </div>`);
+                })
+            };
+        }
+        getnewsdata();
+    </script>
+
+    <div class="row" id="news-carousel" style="max-height: 300px; overflow: auto;">
+    </div>
+</div>
