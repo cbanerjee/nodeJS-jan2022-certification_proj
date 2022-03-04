@@ -2,7 +2,7 @@
     <script>
         function getnewsdata() {
             var oReq = new XMLHttpRequest();
-            oReq.open("GET", "/common/latestnews/");
+            oReq.open("GET", "/common/latestnews/"); //inside the common/latestnews api the info is fetched from the ADMIN Side
             oReq.send();
             oReq.onload = function() {
                 json = JSON.parse(oReq.responseText); //return is a json array with 3 objects
@@ -11,9 +11,9 @@
                     `<div class="col">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">${news.headline}</h5>
-                                <p class="card-text">${news.body}</p>
-                                <p class="card-text">${news.time}</p>
+                                <h5 class="card-title">${news.title}</h5>
+                                <p class="card-text">${news.description}</p>
+                                <p class="card-text">${news.publishedAt}</p>
                             </div>
                         </div>
                     </div>`);

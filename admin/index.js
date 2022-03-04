@@ -6,6 +6,7 @@ const localStorage = require('node-localstorage').LocalStorage('./scratch');
 // const localStorage = new LocalStorage('./scratch');
 
 const jwt = require("jsonwebtoken");
+const { ObjectId } = require("mongodb");
 
 const server = express();
 
@@ -22,17 +23,20 @@ server.use(bodyParser.json());
 server.listen(3100);
 server.get("/", (req, res) => {
     let token = localStorage.getItem('authtoken')
-    if(!token){
+    if (!token) {
         res.render('registerlogin', { msg: null, errmsg: null });
     } else {
-        jwt.verify(token, "This is my secret key",(err, user)=>{
+        jwt.verify(token, "This is my secret key", (err, user) => {
+            if (!user) {
+                res.render('registerlogin', { msg: null, errmsg: null });
+            }
             let email = user.email;
             var userDB = db.getCollection('users');
             userDB.findOne({ email }).then(
                 (record) => {
                     if (record) {
                         //success
-                        res.render('homepage')
+                        res.render('homepage', { alert: null });
                     }
                     else {
                         res.render('registerlogin', { msg: null, errmsg: null })
@@ -40,10 +44,8 @@ server.get("/", (req, res) => {
                 }
             )
 
-        })        
+        })
     }
-
-    // res.render('registerlogin', { msg: null, errmsg: null })
 })
 
 server.post("/register/", (req, res) => {
@@ -83,7 +85,7 @@ server.post("/login/", (req, res) => {
                 },
                     "This is my secret key",
                     {
-                        expiresIn: '2h'
+                        expiresIn: '24h'
                     }
                 );
                 const response = {
@@ -92,21 +94,98 @@ server.post("/login/", (req, res) => {
                     token: token
                 }
                 localStorage.setItem('authtoken', token)
-                res.render('homepage');
+                res.render('homepage', { alert: null });;
             } else {
                 res.render('registerlogin', { msg: "Wrong_Password", errmsg: null })
             }
         })
 });
 
-server.get("/logout/", (req, res)=>{
+server.get("/logout/", (req, res) => {
     let token = localStorage.getItem('authtoken')
-    if(!token){
+    if (!token) {
         res.render('registerlogin', { msg: null, errmsg: null });
     } else {
         localStorage.removeItem('authtoken');
         res.render('registerlogin', { msg: "Logout successful, please login again", errmsg: null })
     }
+})
+
+server.get("/geruserdetails/", (req, res) => {
+    let token = localStorage.getItem('authtoken')
+
+    jwt.verify(token, "This is my secret key", (err, user) => {
+        let email = user.email;
+        var userDB = db.getCollection('users');
+        userDB.findOne({ email }).then(
+            (record) => {
+                // console.log(record);
+                res.send({ name: record.name, email: record.email });
+            }
+        )
+
+    })
+})
+
+server.post("/newsformpost/", (req, res) => {
+    var newsDB = db.getCollection("news");
+    newsDB.insertOne({ title: req.body.title, description: req.body.description, url: req.body.url, publishedAt: req.body.publishedAt, urlToImage: req.body.urlToImage })
+        .then(() => {
+            // res.render('registerlogin', { msg: null, errmsg: "Successful" })
+            res.render('homepage', { alert: "News Posted" });
+        },
+            err => { throw new Error(err); })
+})
+
+server.get("/editnews/", (req, res) => {
+    var newsDB = db.getCollection("news");
+    newsDB.find({}).sort({ publishedAt: -1 }).toArray()
+        .then((data) => {
+            res.render('editnews', { data });
+        })
+})
+
+server.get("/deletenews_execute/:id", (req, res) => {
+    let to_del_id = req.params.id;
+    var newsDB = db.getCollection("news");
+    newsDB.findOneAndDelete ({ _id: ObjectId(to_del_id) })
+        .then(()=>{
+            res.redirect("/editnews/")
+        })
+})
+
+server.get("/edit_news_object/:id", (req, res) => {
+    let id = req.params.id;
+    var newsDB = db.getCollection("news");
+
+    newsDB.findOne({ _id : ObjectId(id) })
+    .then(record => {
+        res.render('edit_news_object', {record});
+    })
+})
+
+server.post("/edit_newsObject/", (req, res) => {
+    let id = req.body.id;
+    // console.log(req.body);
+    var newsDB = db.getCollection("news");
+    newsDB.findOneAndUpdate({ _id : ObjectId(id) }, {$set :{ title: req.body.title, description: req.body.description, url:req.body.url, publishedAt: req.body.publishedAt, urlToImage: req.body.urlToImage }}).then(() => {
+        res.redirect("/editnews/");
+    },
+        err => {
+            console.log(err);
+        });
+})
+
+// const cors = require ("cors");
+// server.use(cors);
+
+server.get("/admin/latestnews/", (req, res)=>{
+    //get latest news last 3
+    var newsDB = db.getCollection("news");
+    newsDB.find({}).sort({time:-1}).limit(3).toArray()
+        .then((data)=>{
+            res.send(data);
+        })
 })
 
 console.log("Server listening at 3100");

@@ -1,12 +1,13 @@
+const { response } = require("express");
 const express = require ("express");
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const db = require("../config/mongodb");
 
 const router = express.Router();
 
-const newsCollection = () =>{
-    return db.getCollection("news");
-}
+// const newsCollection = () =>{
+//     return db.getCollection("news");
+// }
 
 router.get("/home/",(req, res)=>{
     res.render("home");
@@ -42,11 +43,7 @@ router.post("/contactus/query/", (req, res)=>{
 })
 
 router.get("/latestnews/", (req, res)=>{
-    //get latest news last 3
-    newsCollection().find({}).sort({time:-1}).limit(3).toArray()
-        .then((data)=>{
-            res.send(data);
-        })
+    fetch("http://localhost:3100/admin/latestnews").then(response=> response.json()).then(json=>{res.send(json)});
 })
 
 router.get("/sports/", (req, res)=>{

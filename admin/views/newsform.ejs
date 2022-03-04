@@ -1,0 +1,43 @@
+<div class="outerdiv" style="margin: 50px;">
+    <h2 class="blockquote text-center">Add News</h2>
+    <form action="/newsformpost/" method="post">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" name="title" placeholder="Title">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" class="form-control" name="description" placeholder="Description">
+        </div>
+        <div class="mb-3">
+            <label for="url" class="form-label">URL</label>
+            <input type="text" class="form-control" name="url" placeholder="Url">
+        </div>
+        <div class="mb-3">
+            <label for="urlToImage" class="form-label">Url To Image</label>
+            <input type="text" class="form-control" name="urlToImage" placeholder="Url To Image">
+        </div>
+        <div class="mb-3">
+            <label for="publishedAt" class="form-label">Published At</label>
+            <input type="text" class="form-control" name="publishedAt" placeholder="Published At">
+        </div>
+
+        <hr>
+        <% if(alert) { %>
+            <div class="alert alert-warning" role="alert">
+                <strong>
+                    <%= alert %>
+                </strong>
+            </div>
+            <hr>
+            <% } %>
+                <div class="row mx-auto">
+                    <div class="col md-6 mx-auto">
+                        <input type="submit" value="Add" class="btn btn-info float-right" style="float: right;">
+                    </div>
+                    <div class="col md-6 mx-auto">
+                        <input type="reset" class="btn btn-warning" value="RESET">
+                    </div>
+                </div>
+    </form>
+</div>

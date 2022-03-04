@@ -8,26 +8,27 @@
             oReq.send();
             oReq.onload = function() {
                 json = JSON.parse(oReq.responseText); //return is a json array with 3 objects
-                if(json[0].imagelink){
+                console.log(json[0].urlToImage);
+                if(json[0].urlToImage){
                     document.getElementById('first-slide').innerHTML =`
-                    <img src=${json[0].imagelink} class="d-block w-100" alt="${json[0].headline}"/>
+                    <img src=${json[0].urlToImage} class="d-block w-100" alt="${json[0].title}"/>
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>${json[0].headline}</h5>
+                        <h5>${json[0].title}</h5>
                     </div>`
                 }
-                if(json[1].imagelink){
+                if(json[1].urlToImage){
                     document.getElementById('second-slide').innerHTML= `
-                    <img src="${json[1].imagelink}" class="d-block w-100" alt="${json[1].headline}"/>
+                    <img src="${json[1].urlToImage}" class="d-block w-100" alt="${json[1].title}"/>
                     <div class="carousel-caption d-none d-md-block">
-                    <h5>${json[1].headline}</h5>
+                    <h5>${json[1].title}</h5>
                     </div>`
                 }
 
-                if(json[2].imagelink){
+                if(json[2].urlToImage){
                     document.getElementById('third-slide').innerHTML= `
-                    <img src="${json[2].imagelink}" class="d-block w-100" alt="${json[2].headline}"/>
+                    <img src="${json[2].urlToImage}" class="d-block w-100" alt="${json[2].title}"/>
                     <div class="carousel-caption d-none d-md-block">
-                    <h5>${json[2].headline}</h5>
+                    <h5>${json[2].title}</h5>
                     </div>`
                 }
             };

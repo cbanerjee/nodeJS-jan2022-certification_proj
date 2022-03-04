@@ -50,9 +50,11 @@
                         <input type="email" class="form-control" name="email" placeholder="Your Email..">
                         <% if(errmsg) { %>
                             <div class="col-sm-10">
-                                <p style="color: red;"><%= errmsg %></p>
+                                <p style="color: red;">
+                                    <%= errmsg %>
+                                </p>
                             </div>
-                        <% } %>
+                            <% } %>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Your Password</label>
@@ -60,10 +62,10 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-6 float-right">
-                            <input type="submit" class="btn btn-info" value="Register">
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-info" value="Register" style="float: right;">
                         </div>
-                        <div class="col-md-6 float-left">
+                        <div class="col-md-6">
                             <input type="reset" class="btn btn-warning" value="RESET">
                         </div>
                     </div>
@@ -82,12 +84,20 @@
                     </div>
                     <% if(msg) { %>
                         <div class="col-sm-10">
-                            <p style="color: red;"><%= msg %></p>
+                            <p style="color: red;">
+                                <%= msg %>
+                            </p>
                         </div>
-                    <% } %>
-                    <hr>
-                    <input type="submit" value="Login" class="btn btn-success">
-                    <input type="reset" class="btn btn-danger" value="RESET">
+                        <% } %>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="submit" value="Login" class="btn btn-success" style="float: right;">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="reset" class="btn btn-danger" value="RESET">
+                                </div>
+                            </div>
                 </form>
             </div>
         </div>
