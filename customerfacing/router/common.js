@@ -43,7 +43,12 @@ router.post("/contactus/query/", (req, res)=>{
 })
 
 router.get("/latestnews/", (req, res)=>{
-    fetch("http://localhost:3100/admin/latestnews").then(response=> response.json()).then(json=>{res.send(json)});
+    // fetch("http://localhost:3100/admin/latestnews").then(response=> response.json()).then(json=>{res.send(json)});
+    let newsDB = db.getCollection("news")
+    newsDB.find({}).sort({time:-1}).limit(3).toArray()
+        .then((data)=>{
+            res.send(data);
+        })
 })
 
 router.get("/sports/", (req, res)=>{

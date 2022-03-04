@@ -1,0 +1,33 @@
+version: '3'
+services:
+
+    admin:
+        container_name: edureka_nodejs_admin
+        image: cbanerjee/edureka-nodejs-admin-app
+        restart: always
+        ports:
+          - "3100:3100"
+        networks:
+          - edurekanode
+
+    cust:
+        container_name: edureka-nodejs-customer-app
+        image: cbanerjee/edureka-nodejs-customer-app
+        restart: always
+        ports:
+          - "3000:3000"
+          - "3300:3300"
+        networks:
+          - edurekanode
+
+    reverseproxy:
+        container_name: edureka-nodejs-nginx-module
+        image: cbanerjee/edureka-nodejs-nginx-module
+        ports:
+          - "80:8080"
+        networks:
+          - edurekanode
+
+networks:
+  edurekanode:
+    driver: bridge
