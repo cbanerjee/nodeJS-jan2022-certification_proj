@@ -5,7 +5,7 @@ cbanerjee/edureka-nodejs-nginx-module
 
 # After pulling the docker repos (using docker pull <repo>) please run the following commands
 # Go to the directory nginx-proxy
-cd ./ngnix-prody
+cd ./ngnix-proxy
 # run the docker-compose command
 docker-compose up
 
