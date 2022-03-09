@@ -1,17 +1,17 @@
-# Docker Images are in the following Repositories:
+## Docker Images are in the following Repositories:
 cbanerjee/edureka-nodejs-admin-app
 
 cbanerjee/edureka-nodejs-customer-app
 
 cbanerjee/edureka-nodejs-nginx-module
 
-# After pulling the docker repos (using docker pull <repo>) please run the following commands
-# Go to the directory nginx-proxy
+## After pulling the docker repos (using docker pull <repo>) please run the following commands
+### Go to the directory nginx-proxy
 cd ./ngnix-proxy
-# run the docker-compose command
-docker-compose up
+#### run the docker-compose command
+# docker-compose up
 
-# Runtime Details
+### Runtime Details
 Access the customer facing module from http://localhost or http://localhost:3000/
 Access the admin module from http://localhost:3100/
 
